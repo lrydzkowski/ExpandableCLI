@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExpandableCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "plugins run --plugin-name DbPlugin1"
+    }
+  }
+}
