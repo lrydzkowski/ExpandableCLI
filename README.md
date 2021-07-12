@@ -7,8 +7,8 @@ Common libraries:
 
 - **PluginBase** - .NET Core 3.1 library with an interface which has to be implemented by classes allowing to run
 plugin functionalities.
-- **PluginsHandler** - .NET Core 3.1 library with mechanisms relating to work with plugins. It offers such functionalities
-like getting list of available plugins and running a plugin.
+- **PluginsHandler** - .NET Core 3.1 library with mechanisms relating to work with plugins. It offers such 
+functionalities like getting list of available plugins and running a plugin.
 
 Plugins:
 
