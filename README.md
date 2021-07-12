@@ -25,7 +25,7 @@ Entity Framework Core 3.1:
 
 Applications using plugins:
 
-- **ExpandableExample** - .NET 5 console application presenting plugins functionality. It uses dynamically loaded
+- **ExpandableCLI** - .NET 5 console application presenting plugins functionality. It uses dynamically loaded
 plugins which are mentioned above.
 - **ExpandableRESTApi** - .NET 5 ASP.NET Web API appliaction presenting plugins functionality. It uses dynamically 
 loaded plugins which are mentioned above.
