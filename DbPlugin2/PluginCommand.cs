@@ -1,16 +1,18 @@
 ﻿using DbPlugin2.Models;
 using Microsoft.EntityFrameworkCore;
 using PluginBase;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace DbPlugin2
 {
     class PluginCommand : IPluginCommand
     {
+        public string? Data { get; set; } = null;
+
         public void Execute()
         {
             string dbFilePath = Path.Combine(
@@ -25,11 +27,12 @@ namespace DbPlugin2
                     OperationKey = x.OperationKey
                 })
                 .ToList();
+            var resultDataBuilder = new StringBuilder();
             operations.ForEach(operation =>
             {
-                Console.WriteLine($"RecId: {operation.RecId}, OperationKey: {operation.OperationKey}");
+                resultDataBuilder.AppendLine($"RecId: {operation.RecId}, OperationKey: {operation.OperationKey}");
             });
-            Console.WriteLine();
+            Data = resultDataBuilder.ToString();
         }
     }
 }

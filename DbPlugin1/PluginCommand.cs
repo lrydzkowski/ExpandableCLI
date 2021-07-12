@@ -1,16 +1,18 @@
 ﻿using DbPlugin1.Models;
 using Microsoft.EntityFrameworkCore;
 using PluginBase;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace DbPlugin1
 {
     class PluginCommand : IPluginCommand
     {
+        public string? Data { get; set; } = null;
+
         public void Execute()
         {
             string dbFilePath = Path.Combine(
@@ -28,11 +30,12 @@ namespace DbPlugin1
                     LastName = x.LastName
                 })
                 .ToList();
+            StringBuilder resultDataBuilder = new();
             users.ForEach(user =>
             {
-                Console.WriteLine($"UserId: {user.UserId}, Login: {user.Login}, Email: {user.Email}");
+                resultDataBuilder.AppendLine($"UserId: {user.UserId}, Login: {user.Login}, Email: {user.Email}");
             });
-            Console.WriteLine();
+            Data = resultDataBuilder.ToString();
         }
     }
 }

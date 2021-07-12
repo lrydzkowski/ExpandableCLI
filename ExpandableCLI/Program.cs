@@ -67,7 +67,8 @@ namespace ExpandableCLI
         private static void RunPlugin(string pluginName)
         {
             Console.WriteLine($"Run plugin {pluginName}:");
-            PluginsService.RunPlugin(pluginName);
+            string? pluginData = PluginsService.RunPlugin(pluginName);
+            Console.WriteLine(pluginData);
         }
 
         private static void HandleException(Exception ex, InvocationContext invocationContext)

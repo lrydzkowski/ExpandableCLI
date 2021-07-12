@@ -39,14 +39,15 @@ namespace PluginsHandler
             return pluginCommand;
         }
 
-        public static void RunPlugin(string pluginName)
+        public static string? RunPlugin(string pluginName)
         {
             IPluginCommand? pluginCommand = GetPluginCommand(pluginName);
             if (pluginCommand == null)
             {
-                return;
+                return null;
             }
             pluginCommand.Execute();
+            return pluginCommand.Data;
         }
     }
 }

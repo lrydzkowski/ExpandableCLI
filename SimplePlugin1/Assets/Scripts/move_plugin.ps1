@@ -13,11 +13,14 @@ param(
     [string]$configurationName
 )
 
-$consumerAppName = "ExpandableCLI";
-$pluginName = "SimplePlugin1";
-$pluginDestinationDirPath = "${solutionDirPath}${consumerAppName}\bin\${configurationName}\net5.0\Plugins\${pluginName}";
-if (!(Test-Path -Path $pluginDestinationDirPath))
+$consumerAppNames = $("ExpandableCLI", "ExpandableRESTApi");
+Foreach ($consumerAppName in $consumerAppNames)
 {
-    New-Item -Path $pluginDestinationDirPath -ItemType "directory" | Out-Null
+    $pluginName = "SimplePlugin1";
+    $pluginDestinationDirPath = "${solutionDirPath}${consumerAppName}\bin\${configurationName}\net5.0\Plugins\${pluginName}";
+    if (!(Test-Path -Path $pluginDestinationDirPath))
+    {
+        New-Item -Path $pluginDestinationDirPath -ItemType "directory" | Out-Null
+    }
+    Copy-Item -Path "${compilationDirPath}*.dll" -Destination $pluginDestinationDirPath -Exclude "PluginBase.dll"
 }
-Copy-Item -Path "${compilationDirPath}*.dll" -Destination $pluginDestinationDirPath -Exclude "PluginBase.dll"
