@@ -13,20 +13,23 @@ param(
     [string]$configurationName
 )
 
-$consumerAppName = "ExpandableCLI";
-$pluginName = "DbPlugin1";
-$pluginDestinationDirPath = "${solutionDirPath}${consumerAppName}\bin\${configurationName}\net5.0\Plugins\${pluginName}";
-if (!(Test-Path -Path $pluginDestinationDirPath))
+$consumerAppNames = $("ExpandableCLI", "ExpandableRESTApi");
+Foreach ($consumerAppName in $consumerAppNames)
 {
-    New-Item -Path $pluginDestinationDirPath -ItemType "directory" | Out-Null
-}
-Copy-Item -Path "${compilationDirPath}*.dll" -Destination $pluginDestinationDirPath -Exclude "PluginBase.dll"
-Copy-Item   -Path "${solutionDirPath}${pluginName}\Assets\SQLite\win-x64\native\e_sqlite3.dll" `
-            -Destination $pluginDestinationDirPath
+    $pluginName = "DbPlugin1";
+    $pluginDestinationDirPath = "${solutionDirPath}${consumerAppName}\bin\${configurationName}\net5.0\Plugins\${pluginName}";
+    if (!(Test-Path -Path $pluginDestinationDirPath))
+    {
+        New-Item -Path $pluginDestinationDirPath -ItemType "directory" | Out-Null
+    }
+    Copy-Item -Path "${compilationDirPath}*.dll" -Destination $pluginDestinationDirPath -Exclude "PluginBase.dll"
+    Copy-Item   -Path "${solutionDirPath}${pluginName}\Assets\SQLite\win-x64\native\e_sqlite3.dll" `
+                -Destination $pluginDestinationDirPath
 
-$dbDataDirPath = "${pluginDestinationDirPath}\Data";
-if (!(Test-Path -Path $dbDataDirPath))
-{
-    New-Item -Path $dbDataDirPath -ItemType "directory" | Out-Null
+    $dbDataDirPath = "${pluginDestinationDirPath}\Data";
+    if (!(Test-Path -Path $dbDataDirPath))
+    {
+        New-Item -Path $dbDataDirPath -ItemType "directory" | Out-Null
+    }
+    Copy-Item -Path "${solutionDirPath}${pluginName}\Data\data.db" -Destination "${dbDataDirPath}\data.db"
 }
-Copy-Item -Path "${solutionDirPath}${pluginName}\Data\data.db" -Destination "${dbDataDirPath}\data.db"
