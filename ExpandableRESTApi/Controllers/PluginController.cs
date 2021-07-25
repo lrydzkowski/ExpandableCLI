@@ -9,10 +9,7 @@ namespace ExpandableRESTApi.Controllers
     [Route("plugins")]
     public class PluginController : ControllerBase
     {
-        public PluginController()
-        {
-            
-        }
+        public PluginController() { }
 
         [HttpGet, Route("get-list")]
         public IActionResult GetPluginsList()
