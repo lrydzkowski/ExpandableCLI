@@ -15,7 +15,12 @@ namespace PluginsHandler
 
         public static List<string> GetPluginsList()
         {
-            List<string> pluginNames = Directory.GetDirectories(PluginsDirPath)
+            var pluginNames = new List<string>();
+            if (!Directory.Exists(PluginsDirPath))
+            {
+                return pluginNames;
+            }
+            pluginNames = Directory.GetDirectories(PluginsDirPath)
                 .Select(pluginDirPath => Path.GetFileName(pluginDirPath))
                 .Where(pluginName => GetPluginCommand(pluginName) != null)
                 .ToList();

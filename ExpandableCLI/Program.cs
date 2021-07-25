@@ -1,5 +1,6 @@
 ﻿using PluginsHandler;
 using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Invocation;
@@ -61,13 +62,26 @@ namespace ExpandableCLI
         private static void ShowPluginsList()
         {
             Console.WriteLine("Plugins names:");
-            PluginsService.GetPluginsList().ForEach(pluginName => Console.WriteLine($"  {pluginName}"));
+            List<string> plugins = PluginsService.GetPluginsList();
+            if (plugins.Count == 0)
+            {
+                Console.WriteLine("No plugins");
+            }
+            else
+            {
+                plugins.ForEach(pluginName => Console.WriteLine($"  {pluginName}"));
+            }
         }
 
         private static void RunPlugin(string pluginName)
         {
-            Console.WriteLine($"Run plugin {pluginName}:");
             string? pluginData = PluginsService.RunPlugin(pluginName);
+            if (pluginData == null)
+            {
+                Console.WriteLine("Plugin doesn't exist.");
+                return;
+            }
+            Console.WriteLine($"Run plugin {pluginName}:");
             Console.WriteLine(pluginData);
         }
 
